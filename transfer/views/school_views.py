@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from ..models.model_school import School
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 class HomeListView(ListView):
     model = School
@@ -12,6 +13,10 @@ class SchoolListView(ListView):
 #lists of all the object of model School
     model = School
     template_name = 'school_html/school_home.html'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = School.objects.filter(Q(school_name__icontains=query) | Q(state_name__icontains=query))
+        return object_list
 
 class SchoolDetailView(DetailView):
     #detail view of all the object of model School

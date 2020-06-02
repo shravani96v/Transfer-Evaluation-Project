@@ -5,8 +5,13 @@
 </head>
 <body style="background-color:LightYellow;">
       <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
-
       </div>
   </body>
+<form action="{% url 'major_home' %}" method="get">
+  <input name="q" type="text" placeholder="Enter Major...">
+</form>
+<form action="{% url 'school_home' %}" method="get">
+  <input name="q" type="text" placeholder="Enter School...">
+</form>
 </html>
 {% endblock content %}

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from ..models.model_major import Major
 from django.urls import reverse_lazy
 from django.forms import ModelForm
+from django.db.models import Q
 
 class MajorForm(ModelForm):
     class Meta:
@@ -15,6 +16,11 @@ class MajorListView(ListView):
     # list view of the object of model Major
     model = Major
     template_name = 'major_html/major_home.html'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Major.objects.filter(Q(major_name__icontains=query) | Q(major_id__icontains=query))
+        return object_list
+
 
 class MajorDetailView(DetailView):
     #detail view of all the object of model major
