@@ -21,9 +21,9 @@
     <th>{{ transfereval.approved_status}}</th>
     <th>{{ transfereval.sem_year_taken}}</th>
     <th>{{ transfereval.expiration_date}}</th>
-    <th>{{ transfereval.course_id}}</th>
-    <th>{{ transfereval.approver_id}}</th>
-    <th>{{ transfereval.major_req_id}}</th>
+    <th>{{ transfereval.course_id.subject_number}}</th>
+    <th>{{ transfereval.approver_id.approver_name}}</th>
+    <th>{{ transfereval.major_req_id.description}}</th>
     </tr>
     {% endfor %}
 </tbody>
