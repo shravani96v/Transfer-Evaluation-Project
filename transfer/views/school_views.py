@@ -13,10 +13,6 @@ class SchoolListView(ListView):
 #lists of all the object of model School
     model = School
     template_name = 'school_html/school_home.html'
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        object_list = School.objects.filter(Q(school_name__icontains=query) | Q(state_name__icontains=query))
-        return object_list
 
 class SchoolDetailView(DetailView):
     #detail view of all the object of model School
@@ -40,3 +36,12 @@ class SchoolDeleteView(DeleteView):
     model = School
     template_name = 'school_html/school_delete.html'
     success_url = reverse_lazy('school_home')
+
+class SchoolSearchView(ListView):
+#lists of all the object of model School
+    model = School
+    template_name = 'school_html/school_home.html'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = School.objects.filter(Q(school_name__icontains=query) | Q(state_name__icontains=query))
+        return object_list

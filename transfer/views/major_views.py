@@ -16,11 +16,6 @@ class MajorListView(ListView):
     # list view of the object of model Major
     model = Major
     template_name = 'major_html/major_home.html'
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        object_list = Major.objects.filter(Q(major_name__icontains=query) | Q(major_id__icontains=query))
-        return object_list
-
 
 class MajorDetailView(DetailView):
     #detail view of all the object of model major
@@ -34,6 +29,14 @@ class MajorCreateView(CreateView):
     fields = ['major_name']
     success_url = reverse_lazy('major_home')
 
+class MajorSearchView(ListView):
+    # list view of the object of model Major
+    model = Major
+    template_name = 'major_html/major_home.html'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Major.objects.filter(Q(major_name__icontains=query) | Q(major_id__icontains=query))
+        return object_list
 def major_update(request, pk, template_name='major_html/major_update.html'):
     major= get_object_or_404(Major, pk=pk)
     form = MajorForm(request.POST or None, instance=major)

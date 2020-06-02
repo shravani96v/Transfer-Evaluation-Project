@@ -13,7 +13,7 @@ from .views.home import *
 
 urlpatterns = [
     path('load-data/', import_file, name='import'),
-    path('remove-data/', remove_all_data, name='remove_data'),    
+    path('remove-data/', remove_all_data, name='remove_data'),
     path('', HomeListView.as_view(), name='home'),
     #path('result/',result),
     #approver resources
@@ -28,6 +28,7 @@ urlpatterns = [
     path('school-create', SchoolCreateView.as_view(), name='school_new'),
     path('school-update/<int:pk>/', SchoolUpdateView.as_view(), name='school_update'),
     path('school-delete/<int:pk>/', SchoolDeleteView.as_view(), name='school_delete'),
+    path('school-search', SchoolSearchView.as_view(), name='school_search'),
 
     #major resources
     path('major-list/', MajorListView.as_view(), name='major_home'),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('major-delete/<int:pk>/', major_delete, name='major_delete'),
     path('major/<int:pk>/', MajorDetailView.as_view(), name='major_detail'),
     path('major-create', MajorCreateView.as_view(), name='major_new'),
+    path('major-search', MajorSearchView.as_view(), name='major_search'),
     #course resources
     path('course-list/', course_list, name='course_home'),
     path('course/<int:pk>/', course_detail, name='course_detail'),
