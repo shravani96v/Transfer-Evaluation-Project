@@ -12,13 +12,16 @@ class TransferevaluationForm(ModelForm):
         model = Transferevaluation
         fields = ['course_id', 'major_req_id', 'sem_year_taken', 'expiration_date', 'approved_status', 'comment',  'approver_id']
 
+
 class TransferEvaluationListView(ListView):
     model = Transferevaluation
     template_name = 'transferevaluation_html/transfereval_home.html'
 
+
 class TransferEvaluationDetailView(DetailView):
     model = Transferevaluation
     template_name = 'transferevaluation_html/transfereval_detail.html'
+
 
 class TransferEvaluationCreateView(CreateView):
 
@@ -26,10 +29,12 @@ class TransferEvaluationCreateView(CreateView):
     template_name = 'transferevaluation_html/transfereval_new.html'
     fields = ['transfer_eval_id']
 
+
 class TransferEvaluationUpdateView(UpdateView):
     model = Transferevaluation
     template_name = 'transferevaluation_html/transfereval_update.html'
     fields = ['transfer_eval_id']
+
 
 class TransferEvaluationDeleteView(DeleteView):
     model = Transferevaluation

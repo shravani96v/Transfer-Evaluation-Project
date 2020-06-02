@@ -7,14 +7,16 @@ from ..models.model_major_requirement import Major_requirement
 from ..models.model_transferevaluation import Transferevaluation
 from ..models.model_approver import Approver
 
+
 def import_file(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         file = request.FILES['document']
         import_data(file)
     return render(request, 'import.html')
 
+
 def import_data(request):
-    wb = load_workbook(filename = request, data_only=True)
+    wb = load_workbook(filename=request, data_only=True)
     majors = import_major(wb)
     for major in majors:
         data = test_get_data_by_major(wb, major)
@@ -29,6 +31,7 @@ def import_data(request):
         import_requirement(reqs)
         import_evaluations(evals)
 
+
 def import_major(wb_object):
     '''
     Goes through the majors and adds them into the database
@@ -41,6 +44,7 @@ def import_major(wb_object):
         count = count + 1
     return major_names
 
+
 def import_school(schools):
     '''
     Goes through the Schools and adds them into the database
@@ -51,6 +55,7 @@ def import_school(schools):
         school_data.save()
         count = count + 1
     return schools
+
 
 def import_course(courses):
     '''
@@ -98,6 +103,7 @@ def import_evaluations(evals):
         eval_data.save()
         count = count + 1
 
+
 def test_get_data_by_major(transfer_wb, major_name):
     """
     Tests get_data_by_major()
@@ -114,7 +120,6 @@ def test_get_data_by_major(transfer_wb, major_name):
         major_ws, major_id, schools, courses, approvers, major_reqs, evals
     )
     return [schools, courses, approvers, major_reqs, evals]
-
 
 
 def get_unique_vals_from_col(major_ws, col_idx):
@@ -300,6 +305,7 @@ def get_data_by_major(
         major_ws, major_id, start_col, end_col, schools, courses, approvers,
         major_reqs)
     evals.extend(transfer_eval_lst)
+
 
 def update(all_lst, one_lst):
     """

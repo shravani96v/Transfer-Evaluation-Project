@@ -1,6 +1,7 @@
 from django.db import models
 from .model_major import Major
 
+
 class Major_requirement(models.Model):
     """
     table name is school

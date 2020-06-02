@@ -1,6 +1,7 @@
 from django.db import models
 from .model_major import Major
 
+
 class School(models.Model):
 
     school_id = models.AutoField(primary_key=True)

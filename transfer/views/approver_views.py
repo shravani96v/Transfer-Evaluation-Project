@@ -10,10 +10,12 @@ class ApproverListView(ListView):
     model = Approver
     template_name = 'approver_html/approver_home.html'
 
+
 class ApproverDetailView(DetailView):
-    #detail view of all the object of model approver
+    # detail view of all the object of model approver
     model = Approver
     template_name = 'approver_html/approver_detail.html'
+
 
 class ApproverCreateView(CreateView):
     # creates object in model Major
@@ -22,11 +24,13 @@ class ApproverCreateView(CreateView):
     fields = ['approver_name']
     success_url = reverse_lazy('approver_home')
 
+
 class ApproverUpdateView(UpdateView):
     model = Approver
     template_name = 'approver_html/approver_update.html'
     fields = ['approver_name']
     success_url = reverse_lazy('approver_home')
+
 
 class ApproverDeleteView(DeleteView):
     model = Approver

@@ -4,6 +4,7 @@ from .model_course import Course
 from .model_major_requirement import Major_requirement
 from .model_approver import Approver
 
+
 class Transferevaluation(models.Model):
     transfer_eval_id = models.AutoField(primary_key=True)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
