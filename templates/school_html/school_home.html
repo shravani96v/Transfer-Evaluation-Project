@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h3>School list:</h3>
+
+<table class="content-table">
+  <thead>
+    <tr>
+      <th>school_id</th>
+      <th>school_name</th>
+      <th>state_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for school in object_list %}
+    <tr>
+    <th><a href="{% url 'school_detail' school.pk %}">{{school.school_id}}</th>
+    <th><a href="{% url 'school_detail' school.pk %}">{{school.school_name}}</th>
+    <th><a href="{% url 'school_detail' school.pk %}">{{school.state_name}}</th>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

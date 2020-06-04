@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <div style="height:90vh;">
+        <h3>Import File</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="document">
+                <button type="submit"> Import </button>
+            </form>
+    </div>
+{% endblock content %}

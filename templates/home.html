@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<html>
+  <head>
+</head>
+<body style="background-color:LightYellow;">
+      <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
+      </div>
+  </body>
+<form action="{% url 'major_search' %}" method="get">
+  <input name="q" type="text" placeholder="Enter Major...">
+</form>
+<form action="{% url 'school_search' %}" method="get">
+  <input name="q" type="text" placeholder="Enter School...">
+</form>
+  <p><a href="{% url 'logout' %}">logout</a></p>
+
+</html>
+{% endblock content %}

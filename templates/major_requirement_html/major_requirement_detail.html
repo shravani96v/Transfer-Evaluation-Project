@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p><strong>major_req_id:</strong>{{ object.major_req_id }}</p>
+  <p><strong>description:</strong>{{ object.description}}</p>
+  <li><a href="{% url 'major_requirement_update' major_requirement.pk %}"><button type="submit">update major-Major_requirement</button></a></li>
+  <li><a href="{% url 'major_requirement_delete' major_requirement.pk %}"><button type="submit">update major_requirement</button></a></li>
+{% endblock content %}

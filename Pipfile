@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "==3.0.3"
+openpyxl = "*"
+xlrd = "*"
+gunicorn = "==20.0.4"
+whitenoise = "*"
+
+[requires]
+python_version = "3.8"

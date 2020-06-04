@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h3>Major_requirement:</h3>
+<table class="content-table">
+<thead>
+    <tr>
+    <th>Major_req_id</th>
+    <th>description</th>
+    </tr>
+</thead>
+<tbody>
+  {% for Major_requirement in object_list %}
+  <tr>
+  <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.major_req_id }}</a></th>
+  <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.description }}</a></th>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

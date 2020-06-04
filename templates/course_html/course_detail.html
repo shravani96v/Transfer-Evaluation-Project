@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Course</h1>
+
+<p>Subject Number:{{ object.subject_number}}</p>
+<p>Course Title:{{ object.title}}</p>
+<p>School ID:{{ object.school_id}}</p>
+<li><a href="{% url 'course_update' course.pk %}"><button type="submit">update course</button></a></li>
+<li><a href="{% url 'course_delete' course.pk %}"><button type="submit">delete course</button></a></li>
+{% endblock %}

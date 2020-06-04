@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h3>major:</h3>
+<table class="content-table">
+<thead>
+    <tr>
+    <th>Major_name</th>
+    </tr>
+</thead>
+<tbody>
+  {% for major in object_list %}
+  <tr>
+  <th><a href="{% url 'major_detail' major.pk %}">{{ major.major_name}}</a></th>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

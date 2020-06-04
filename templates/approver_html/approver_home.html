@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h3>Approver:</h3>
+<table class="content-table">
+<thead>
+    <tr>
+    <th>Approver_name</th>
+    </tr>
+</thead>
+<tbody>
+  {% for approver in object_list %}
+  <tr>
+  <th><a href="{% url 'approver_detail' approver.pk %}">{{ approver.approver_name}}</a></th>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

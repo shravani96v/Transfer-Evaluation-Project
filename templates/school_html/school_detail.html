@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="post-entry">
+  <p><strong>school_id:</strong>{{ object.school_id }}</p>
+  <p><strong>school_name:</strong>{{ object.school_name }}</p>
+  <p><strong>state_name:</strong>{{ object.state_name }}</p>
+</div>
+<li><a href="{% url 'school_update' school.pk %}"><button type="submit">update school</button></a></li>
+<li><a href="{% url 'school_delete' school.pk %}"><button type="submit">delete school</button></a></li>
+
+{% endblock content %}

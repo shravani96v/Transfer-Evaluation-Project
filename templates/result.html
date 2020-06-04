@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h2>Transferable course matches: </h2>
+<p>selected School:{{ schoolname }}</p>
+
+
+<table class="content-table">
+  <thead>
+    <tr>
+      <th>subject_number</th>
+      <th>Course Title</th>
+      <th>UNHM Course</th>
+      <th>Approved Status</th>
+      <th>Expires</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in object_list %}
+
+    <tr>
+    <th>{{ course.subject_number}}</th>
+    <th>{{ course.title}}</th>
+    <th>{{course.school_id}}</th>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

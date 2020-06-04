@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div  class="context-table"><table >
+
+<thead>
+<tr>
+  <th>Update School:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<form method="post">{% csrf_token %}
+
+    <th>  {{ form.as_p }}  </th>
+<th><input type="submit" value="Submit" /></th>
+</form>
+
+</tr>
+</tbody>
+</table>
+</div>
+{% endblock content %}

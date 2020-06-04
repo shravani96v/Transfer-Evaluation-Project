@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>UNHM Transer Credit </title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  </head>
+  <body>
+    <header>
+       <a href="http://127.0.0.1:8000/transfer/" title="Home" rel="home" id="logo">
+          <img src="https://paulcollege.unh.edu/cep/sites/paulcollege.unh.edu.cep/themes/cep/logo.png" alt="Home">
+    </header>
+    <div id="secondary-menu" class="navigation">
+          <h2 class="element-invisible">Secondary menu</h2><ul id="secondary-menu-links" class="links inline clearfix"><li class="menu-436 first last"><a href="" title="">Log In</a></li></ul>
+    </div> <!-- /#secondary-menu -->
+
+  </body>
+  <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="{% url 'home' %}">Home</a>
+    <div class="dropdown">
+    <button class="dropbtn">Schools
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+     <a href="{% url 'school_home' %}">School Names</a>
+     <a href="{% url 'school_new' %}">Create School</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Course
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="{% url 'course_home' %}">All Courses</a>
+        <a href="{% url 'course_new' %}">Create Course</a>
+    </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Approver
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+          <a href="{% url 'approver_home' %}">Approvers</a>
+          <a href="{% url 'approver_new' %}">Create Approvers</a>
+      </div>
+     </div>
+    <div class="dropdown">
+        <button class="dropbtn">Major
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'major_home' %}">Majors</a>
+            <a href="{% url 'major_new' %}">Create Major</a>
+        </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Transfereval
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+          <a href="{% url 'transfereval_home' %}">Transfereval</a>
+          <a href="{% url 'transfereval_new' %}">Create transfereval</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Major Requirements
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+          <a href="{% url 'major_requirement_home' %}">Major Requirements</a>
+          <a href="{% url 'major_requirement_new' %}">Create Major Requirement</a>
+      </div>
+    </div>
+    <a href="{% url 'import' %}">Import File</a>
+    <a href="{% url 'remove_data' %}">Remove Data</a>
+
+</div>
+</body>
+</html>
+
+</html>
+{% block content %}
+{% endblock content %}

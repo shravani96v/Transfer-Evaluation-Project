@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p><strong>major_name:</strong>{{ object.major_name }}</p>
+  <li><a href="{% url 'major_update' major.pk %}"><button type="submit">update major</button></a></li>
+  <li><a href="{% url 'major_delete' major.pk %}"><button type="submit">delete major</button></a></li>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Transfer Evaluation:</h1>
+<p>Approved status:{{ object.approved_status}}</p>
+<p>Sem year taken:{{ object.sem_year_taken}}</p>
+<p>Expiration date:{{ object.expiration_date}}
+<p>Course ID:{{ object.course_id}}</p>
+<p>Approver ID:{{ object.approver_id}}</p>
+<p>Major requirement ID:{{ object.major_req_id}}</p>
+{% endblock %}

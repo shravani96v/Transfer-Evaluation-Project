@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <p><strong>approver_name:</strong>{{ object.approver_name }}</p>
+  <p><strong>approver_id:</strong>{{ object.approver_id}}</p>
+  <li><a href="{% url 'approver_update' approver.pk %}"><button type="submit">update approver</button></a></li>
+  <li><a href="{% url 'approver_delete' approver.pk %}"><button type="submit">delete approver</button></a></li>
+{% endblock content %}
