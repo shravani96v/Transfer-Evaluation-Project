@@ -4,17 +4,15 @@
   <head>
     <meta charset="utf-8">
     <title>UNHM Transer Credit </title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
   </head>
   <body>
     <header>
        <a href="http://127.0.0.1:8000/transfer/" title="Home" rel="home" id="logo">
           <img src="https://paulcollege.unh.edu/cep/sites/paulcollege.unh.edu.cep/themes/cep/logo.png" alt="Home">
     </header>
-    <div id="secondary-menu" class="navigation">
-          <h2 class="element-invisible">Secondary menu</h2><ul id="secondary-menu-links" class="links inline clearfix"><li class="menu-436 first last"><a href="" title="">Log In</a></li></ul>
-    </div> <!-- /#secondary-menu -->
 
+    
   </body>
   <!DOCTYPE html>
 <html>
@@ -147,6 +145,7 @@ body {
     </div>
     <a href="{% url 'import' %}">Import File</a>
     <a href="{% url 'remove_data' %}">Remove Data</a>
+    <p><a href="{% url 'logout' %}">logout</a></p>
 
 </div>
 </body>
