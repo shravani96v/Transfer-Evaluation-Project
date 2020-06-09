@@ -28,7 +28,7 @@ urlpatterns = [
     path('school-create', SchoolCreateView.as_view(), name='school_new'),
     path('school-update/<int:pk>/', SchoolUpdateView.as_view(), name='school_update'),
     path('school-delete/<int:pk>/', SchoolDeleteView.as_view(), name='school_delete'),
-    path('school-search', SchoolSearchView.as_view(), name='school_search'),
+    path('school-search/', SchoolSearchView.as_view(), name='school_search'),
 
     # major resources
     path('major-list/', MajorListView.as_view(), name='major_home'),

@@ -13,12 +13,16 @@
       <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
       </div>
   </body>
+
 <form action="{% url 'major_search' %}" method="get">
-  <input name="q" type="text" placeholder="Enter Major...">
+    <input name="q" type="text" placeholder="Enter Major...">
+        <button type="submit">Go</button>
 </form>
 <form action="{% url 'school_search' %}" method="get">
-  <input name="q" type="text" placeholder="Enter School...">
+    <input name="q" type="text" placeholder="Enter School...">
+    <button type="submit">Go</button>
 </form>
+
 
 
 </html>
