@@ -93,7 +93,7 @@ body {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-     <a href="{% url 'school_home' %}">School Names</a>
+     <a href="{% url 'school_home' %}">Schools List</a>
      <a href="{% url 'school_new' %}">Create School</a>
     </div>
   </div>
@@ -102,7 +102,7 @@ body {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-        <a href="{% url 'course_home' %}">All Courses</a>
+        <a href="{% url 'course_home' %}">Courses List</a>
         <a href="{% url 'course_new' %}">Create Course</a>
     </div>
     </div>
@@ -111,8 +111,8 @@ body {
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-          <a href="{% url 'approver_home' %}">Approvers</a>
-          <a href="{% url 'approver_new' %}">Create Approvers</a>
+          <a href="{% url 'approver_home' %}">Approvers List</a>
+          <a href="{% url 'approver_new' %}">Create Approver</a>
       </div>
      </div>
     <div class="dropdown">
@@ -120,7 +120,7 @@ body {
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            <a href="{% url 'major_home' %}">Majors</a>
+            <a href="{% url 'major_home' %}">Majors List</a>
             <a href="{% url 'major_new' %}">Create Major</a>
         </div>
     </div>
@@ -129,7 +129,7 @@ body {
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-          <a href="{% url 'transfereval_home' %}">Transfereval</a>
+          <a href="{% url 'transfereval_home' %}">Transfereval List</a>
           <a href="{% url 'transfereval_new' %}">Create transfereval</a>
       </div>
     </div>
@@ -138,13 +138,13 @@ body {
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-          <a href="{% url 'major_requirement_home' %}">Major Requirements</a>
+          <a href="{% url 'major_requirement_home' %}">Major Requirements List</a>
           <a href="{% url 'major_requirement_new' %}">Create Major Requirement</a>
       </div>
     </div>
     <a href="{% url 'import' %}">Import File</a>
     <a href="{% url 'remove_data' %}">Remove Data</a>
-    <p><a href="{% url 'logout' %}">logout</a></p>
+    <a href="{% url 'logout' %}">logout</a>
 
 </div>
 </body>

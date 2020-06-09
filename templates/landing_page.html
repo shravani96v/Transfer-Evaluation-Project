@@ -2,6 +2,24 @@
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
+  <br>
   <a href="{% url 'login' %}">login</a> |
   <a href="{% url 'signup' %}">signup</a>
 {% endif %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+<form action="{% url 'major_search' %}" method="get">
+    <input name="q" type="text" placeholder="Enter Major...">
+        <button type="submit">Go</button>
+</form>
+<form action="{% url 'school_search' %}" method="get">
+    <input name="q" type="text" placeholder="Enter School...">
+    <button type="submit">Go</button>
+</form>

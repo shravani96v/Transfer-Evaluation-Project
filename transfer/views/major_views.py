@@ -40,7 +40,7 @@ class MajorSearchView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Major.objects.filter(Q(major_name__icontains=query) | Q(major_id__icontains=query))
+        object_list = Major.objects.filter(Q(major_name__icontains=query))
         return object_list
 
 
