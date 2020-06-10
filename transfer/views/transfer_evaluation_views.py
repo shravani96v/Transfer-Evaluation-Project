@@ -10,7 +10,7 @@ from django.forms import ModelForm
 class TransferevaluationForm(ModelForm):
     class Meta:
         model = Transferevaluation
-        fields = ['course_id', 'major_req_id', 'sem_year_taken', 'expiration_date', 'approved_status', 'comment',  'approver_id']
+        fields = ['transfer_course_id', 'major_req_id', 'sem_year_taken', 'expiration_date', 'approved_status', 'notes',  'approver_id']
 
 
 class TransferEvaluationListView(ListView):

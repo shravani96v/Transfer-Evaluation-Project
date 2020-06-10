@@ -2,7 +2,7 @@ from openpyxl import load_workbook
 from django.shortcuts import render
 from ..models.model_major import Major
 from ..models.model_school import School
-from ..models.model_course import Course
+from ..models.model_transfer_course import TransferCourse
 from ..models.model_major_requirement import Major_requirement
 from ..models.model_transferevaluation import Transferevaluation
 from ..models.model_approver import Approver
@@ -63,7 +63,7 @@ def import_course(courses):
     '''
     count = 1
     for course in courses:
-        course_data = Course(count, course[0], course[1], course[2])
+        course_data = TransferCourse(count, course[0], course[1], course[2])
         course_data.save()
         count = count + 1
 

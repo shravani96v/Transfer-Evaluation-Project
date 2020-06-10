@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.http import HttpResponse
-from ..models.model_course import Course
+from ..models.model_transfer_course import TransferCourse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.forms import ModelForm
@@ -9,12 +9,12 @@ from django.forms import ModelForm
 
 class CourseForm(ModelForm):
     class Meta:
-        model = Course
-        fields = ['course_id', 'school_id', 'subject_number', 'title']
+        model = TransferCourse
+        fields = ['transfer_course_id', 'school_id', 'subject_number', 'title']
 
 
 def course_list(request, template_name='course_html/course_home.html'):
-    course = Course.objects.all()
+    course = TransferCourse.objects.all()
     data = {}
     data['object_list'] = course
     return render(request, template_name, data)
