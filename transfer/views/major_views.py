@@ -5,6 +5,7 @@ from ..models.model_major import Major
 from django.urls import reverse_lazy
 from django.forms import ModelForm
 from django.db.models import Q
+from ..models.model_transferevaluation import Transferevaluation
 
 
 class MajorForm(ModelForm):
@@ -36,11 +37,11 @@ class MajorCreateView(CreateView):
 class MajorSearchView(ListView):
     # list view of the object of model Major
     model = Major
-    template_name = 'major_html/major_home.html'
+    template_name = 'search_results.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Major.objects.filter(Q(major_name__icontains=query))
+        object_list = Transferevaluation.objects.filter(Q(major_req_id__major_id__major_name__icontains=query))
         return object_list
 
 

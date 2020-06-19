@@ -10,12 +10,14 @@ from .views.approver_views import *
 from .views.load import *
 from .views.major_requirement_views import *
 from .views.home import *
+from .views.search import *
 
 urlpatterns = [
     path('load-data/', import_file, name='import'),
     path('remove-data/', remove_all_data, name='remove_data'),
     path('home', HomeListView.as_view(), name='home'),
-    # path('result/',result)
+    path('searchby-major/', SearchByMajor.as_view(), name='searchbymajor'),
+    path('searchby-school/', searchbyschool, name='searchbyschool'),
     # approver resources
     path('approver-list/', ApproverListView.as_view(), name='approver_home'),
     path('approver/<int:pk>/', ApproverDetailView.as_view(), name='approver_detail'),

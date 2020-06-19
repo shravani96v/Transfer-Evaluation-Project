@@ -1,0 +1,30 @@
+{% extends 'searchbymajor.html' %}
+{% load static %}
+
+{% block content %}
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js" integrity="sha256-wfVTTtJ2oeqlexBsfa3MmUoB77wDNRPqT1Q1WA2MMn4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css" integrity="sha256-FdatTf20PQr/rWg+cAKfl6j4/IY3oohFAJ7gVC3M34E=" crossorigin="anonymous" />
+    <script>
+        $(document).ready(function()
+        {
+            $('#school_id').select2();
+        });</script>
+</head>
+<body>
+    <form action="{% url 'school_search' %}" method="get">
+        <input name="q" type = "submit" value = "submit">
+            <select name = "q" id ="school_id">
+                <option disabled="true" selected>-- Select school --</option>
+                {% for school in School %}
+                    <option>{{school.school_name}}</option>
+                {% endfor %}
+            </select>
+    </form>
+</body>
+</html>
+
+
+{% endblock  %}
