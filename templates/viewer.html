@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+
 {% load static %}
 {% block content %}
 
@@ -8,24 +8,22 @@
 <thead>
     <tr>
     <th>approved_status</th>
-    <th>sem_year_taken</th>
     <th>expiration_date</th>
     <th>course_id</th>
     <th>approver_id</th>
     <th>major_req_id</th>
-    <th>Major Name</th>
+    <th>major_name</th>
     </tr>
 </thead>
 <tbody>
     {% for transfereval in object_list %}
     <tr>
     <th>{{ transfereval.approved_status}}</th>
-    <th>{{ transfereval.sem_year_taken}}</th>
     <th>{{ transfereval.expiration_date}}</th>
     <th>{{ transfereval.transfer_course_id.subject_number}}</th>
     <th>{{ transfereval.approver_id.approver_name}}</th>
     <th>{{ transfereval.major_req_id.description}}</th>
-    <th>{{ transfereval.major_req_id.major_id.major_name}}</th>
+    <th>{{ transfereval.major_id.major_name}}</th>
     </tr>
     {% endfor %}
 </tbody>

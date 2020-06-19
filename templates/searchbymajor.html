@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <form action="{% url 'major_search' %}" method="get">
+        <input name="q" type = "submit" value = "submit">
+            <select name = "q" id ="major_id">
+                <option disabled="true" selected>-- Select major --</option>
+                    {% for major in object_list %}
+                        <option>{{major.major_name}}</option>
+                    {% endfor %}
+            </select>
+    </form>
+</html>
+
+{% block content %}
+{% endblock  %}

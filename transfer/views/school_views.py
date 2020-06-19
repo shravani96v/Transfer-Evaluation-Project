@@ -4,6 +4,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from ..models.model_school import School
 from django.urls import reverse_lazy
 from django.db.models import Q
+from ..models.model_transferevaluation import Transferevaluation
 
 
 class HomeListView(ListView):
@@ -45,11 +46,10 @@ class SchoolDeleteView(DeleteView):
 
 
 class SchoolSearchView(ListView):
-    # lists of all the object of model School
-    model = School
-    template_name = 'school_html/school_home.html'
+    template_name = 'search_results.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = School.objects.filter(Q(school_name__icontains=query) | Q(state_name__icontains=query))
+        print(query)
+        object_list = Transferevaluation.objects.filter(Q(transfer_course_id__school_id__school_name__icontains=query))
         return object_list
