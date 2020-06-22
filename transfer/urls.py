@@ -11,8 +11,10 @@ from .views.load import *
 from .views.major_requirement_views import *
 from .views.home import *
 from .views.search import *
+from .views.create_all import *
 
 urlpatterns = [
+    path('create', create_all, name = "create_all"),
     path('load-data/', import_file, name='import'),
     path('remove-data/', remove_all_data, name='remove_data'),
     path('home', HomeListView.as_view(), name='home'),
