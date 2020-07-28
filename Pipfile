@@ -11,6 +11,7 @@ openpyxl = "*"
 xlrd = "*"
 gunicorn = "==20.0.4"
 whitenoise = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"
