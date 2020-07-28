@@ -13,6 +13,7 @@
   {% for approver in object_list %}
   <tr>
   <th><a href="{% url 'approver_detail' approver.pk %}">{{ approver.approver_name}}</a></th>
+  <th>{{approver.approver_id}}<th>
   </tr>
   {% endfor %}
 </tbody>

@@ -12,10 +12,14 @@ from .views.major_requirement_views import *
 from .views.home import *
 from .views.search import *
 from .views.create_all import *
+from .views.dropdownviews import *
+from .views.import_more import *
+
 
 urlpatterns = [
     path('create', create_all, name = "create_all"),
     path('load-data/', import_file, name='import'),
+    path('load-more/', import_more, name='import_more'),
     path('remove-data/', remove_all_data, name='remove_data'),
     path('home', HomeListView.as_view(), name='home'),
     path('searchby-major/', SearchByMajor.as_view(), name='searchbymajor'),
@@ -43,8 +47,8 @@ urlpatterns = [
     path('major-search', MajorSearchView.as_view(), name='major_search'),
     # course resources
     path('course-list/', course_list, name='course_home'),
-    path('course/<int:pk>/', course_detail, name='course_detail'),
-    path('course-update/<int:pk>/', course_update, name='course_update'),
+    path('course/<int:pk>/', CourseDetailView.as_view(), name='course_detail'),
+    path('course-update/<int:pk>/', CourseUpdateView.as_view(), name='course_update'),
     path('course-delete/<int:pk>/', course_delete, name='course_delete'),
     path('course-create', course_create, name='course_new'),
 
@@ -61,4 +65,12 @@ urlpatterns = [
     path('major-requirement-create', Major_requirementCreateView.as_view(), name='major_requirement_new'),
     path('major-requirement-update/<int:pk>/', Major_requirementUpdateView.as_view(), name='major_requirement_update'),
     path('major-requirement-delete/<int:pk>/', Major_requirementDeleteView.as_view(), name='major_requirement_delete'),
+
+
+    path('list/', DropDownListView.as_view(), name='person_changelist'),
+    path('add/', DropDownCreateView.as_view(), name='person_add'),
+    path('adds/', dropdown, name='person_add'),
+    path('<int:pk>/', PersonUpdateView.as_view(), name='person_change'),
+    path('ajax/load-cities/', load_majors, name='ajax_load_majors'),
+    #path('ajax/load-vanues/', views.load_vanues, name='ajax_load_vanues'),
 ]

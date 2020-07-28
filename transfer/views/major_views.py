@@ -36,11 +36,12 @@ class MajorCreateView(CreateView):
 
 class MajorSearchView(ListView):
     # list view of the object of model Major
-    model = Major
+    #model = Transferevaluation
     template_name = 'search_results.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
+        print(query)
         object_list = Transferevaluation.objects.filter(Q(major_req_id__major_id__major_name__icontains=query))
         return object_list
 

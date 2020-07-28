@@ -8,3 +8,6 @@ class TransferCourse(models.Model):
     school_id = models.ForeignKey(School, on_delete=models.CASCADE, null=True, default=None)
     subject_number = models.CharField(max_length=200,  blank=True, null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
+
+    class Meta:
+       unique_together = ("school_id", "subject_number")
