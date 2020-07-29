@@ -18,18 +18,23 @@ def import_file(request):
 def import_data(request):
     wb = load_workbook(filename=request, data_only=True)
     majors = import_major(wb)
-    for major in majors:
-        data = test_get_data_by_major(wb, major)
-        schools = data[0]
-        courses = data[1]
-        approvers = data[2]
-        reqs = data[3]
-        evals = data[4]
-        import_school(schools)
-        import_course(courses)
-        import_approvers(approvers)
-        import_requirement(reqs)
-        import_evaluations(evals)
+    schools = []
+    courses = []
+    approvers = []
+    major_reqs = []
+    evals = []
+
+    data = test_get_data_by_major(wb)
+    schools.extend(data[0])
+    courses.extend(data[1])
+    approvers.extend(data[2])
+    major_reqs.extend(data[3])
+    evals.extend(data[4])
+    import_school(schools)
+    import_course(courses)
+    import_approvers(approvers)
+    import_requirement(major_reqs)
+    import_evaluations(evals)
 
 
 def import_major(wb_object):
@@ -49,12 +54,17 @@ def import_school(schools):
     '''
     Goes through the Schools and adds them into the database
     '''
+    #print(schools)
+    unique_schools = []
     count = 1
     for school in schools:
-        school_data = School(count, school, "N/A")
+        if school not in unique_schools:
+            unique_schools.append(school)
+    for school_name in unique_schools:
+        school_data = School(count, school_name, "N/A")
         school_data.save()
         count = count + 1
-    return schools
+    #return schools
 
 
 def import_course(courses):
@@ -62,10 +72,19 @@ def import_course(courses):
     Goes through the courses and adds them into the database
     '''
     count = 1
+    course_list = []
+    #print(courses, '\n')
+    #unique_courses = []
+    #for course_lst in courses:
+    #    if course_lst[0:2] not in unique_courses:
+    #        unique_courses.append(course_lst)
+    #print(courses,'This is in course_import')
     for course in courses:
-        course_data = TransferCourse(count, course[0], course[1], course[2])
-        course_data.save()
-        count = count + 1
+        #print(course)
+        if course not in course_list:
+            course_data = TransferCourse(count, course[0], course[1], course[2])
+            course_data.save()
+            count = count + 1
 
 
 def import_approvers(approvers):
@@ -73,18 +92,23 @@ def import_approvers(approvers):
     Goes through the approvers and adds them into the database
     '''
     count = 1
+    unique_approvers = []
     for approver in approvers:
+        if approver not in unique_approvers:
+            unique_approvers.append(approver)
+    for approver in unique_approvers:
         approver_data = Approver(count, approver)
         approver_data.save()
         count = count + 1
 
 
-def import_requirement(reqs):
+def import_requirement(major_reqs):
     '''
     Goes through the requirements and adds them into the database
     '''
     count = 1
-    for req in reqs:
+    print(major_reqs,'These kskdikdidi')
+    for req in major_reqs:
         req_data = Major_requirement(count, req[1], req[0])
         req_data.save()
         count = count + 1
@@ -95,16 +119,25 @@ def import_evaluations(evals):
     Goes through the evaluations and adds them into the database
     '''
     count = 1
+    #print(evals)
     for evaluation in evals:
-        eval_data = Transferevaluation(count, evaluation[0], evaluation[1],
-                                       evaluation[2], "2020-03-03",
-                                       evaluation[3], evaluation[5],
-                                       evaluation[4])
+        #print(evaluation)
+        eval_data = Transferevaluation(
+            count,
+            evaluation[0],  # course_id
+            evaluation[1],  # major-req_id
+            evaluation[2],  #eval_row[2] sem_year_taken
+            evaluation[5],
+            evaluation[3],  # approved_status
+            evaluation[6],  # comment
+            evaluation[4]   # approver_id
+        )
         eval_data.save()
+        #print(eval_data)
         count = count + 1
 
 
-def test_get_data_by_major(transfer_wb, major_name):
+def test_get_data_by_major(transfer_wb):
     """
     Tests get_data_by_major()
     """
@@ -114,15 +147,16 @@ def test_get_data_by_major(transfer_wb, major_name):
     major_reqs = []
     evals = []
 
-    major_ws = transfer_wb[major_name]
-    major_id = transfer_wb.sheetnames.index(major_name) + 1
+    #major_ws = transfer_wb[major_name]
+    #major_id = transfer_wb.sheetnames.index(major_name) + 1
     get_data_by_major(
-        major_ws, major_id, schools, courses, approvers, major_reqs, evals
+        transfer_wb, schools, courses, approvers, major_reqs, evals
     )
+    print(major_reqs,'This is in get_data_by_major')
     return [schools, courses, approvers, major_reqs, evals]
 
 
-def get_unique_vals_from_col(major_ws, col_idx):
+def get_unique_vals_from_col(transfer_wb, col_idx):
     """
     Computes and returns a list of unique values from the cell values of the
     column at col_idx in the worksheet major_ws.
@@ -136,14 +170,48 @@ def get_unique_vals_from_col(major_ws, col_idx):
     value_set = set()
     # Iterate over all the rows in the selected column, col_idx
     # Loop variable is a tuple with one element, call value
-    for row_tuple in major_ws.iter_rows(
+    for sheet in transfer_wb:
+        #print(major_ws)
+        for row_tuple in sheet.iter_rows(
+                min_row=2, max_row=sheet.max_row,
+                min_col=col_idx, max_col=col_idx,
+                values_only=True):
+            # Extract element value from the tuple and add it to value_set
+            # If element value already exists in value_set, nothing happens
+            value_set.add(row_tuple[0])
+    #print(value_set,"This is in vjsvh")
+    return list(value_set)
+
+def get_unique_reqs_vals_from_col(transfer_wb, col_idx):
+    """
+    Computes and returns a list of unique values from the cell values of the
+    column at col_idx in the worksheet major_ws.
+    Used to get School and Approver name attribute values and
+    MajorRequirement description attribute values.
+    major_ws: worksheet
+    col_idx: integer, column index
+    Returns: tuple of unique values
+    """
+    # Accumulator is a set because it let us add ONLY unique values
+    #value_set = set()
+    major_descriptions = []
+    # Iterate over all the rows in the selected column, col_idx
+    # Loop variable is a tuple with one element, call value
+    for major_ws in transfer_wb:
+        major_id = transfer_wb.sheetnames.index(major_ws.title) + 1
+        value_set = set()
+        for row_tuple in major_ws.iter_rows(
             min_row=2, max_row=major_ws.max_row,
             min_col=col_idx, max_col=col_idx,
             values_only=True):
-        # Extract element value from the tuple and add it to value_set
-        # If element value already exists in value_set, nothing happens
-        value_set.add(row_tuple[0])
-    return list(value_set)
+    # Extract element value from the tuple and add it to value_set
+    # If element value already exists in value_set, nothing happe
+            value_set.add(row_tuple[0])
+        print(value_set, 'this is value_set')
+        for major_description in list(value_set):
+            major_descriptions.append([major_id, major_description])
+    print(major_descriptions, 'major_descriptions')
+    return major_descriptions
 
 
 def eval_with_fk(major_id, eval_row, schools, courses, approvers, major_reqs):
@@ -159,6 +227,7 @@ def eval_with_fk(major_id, eval_row, schools, courses, approvers, major_reqs):
         course ID, majore requirement ID, and approver ID
     """
     eval_data = []
+    #print(courses)
 
     # get school name from column 1
     # find school ID in schools list
@@ -170,14 +239,24 @@ def eval_with_fk(major_id, eval_row, schools, courses, approvers, major_reqs):
     course_data = []
     course_data.append(school_id)
     course_data.extend(eval_row[1:3])
+    #print(course_data)
+    # print(course_data)
+    # course_id = TransferCourse.objects.get(transfer_course_id=transfer_course_id)
+    #print(courses,'These are courses')
+    #print(course_data,'This is course_data')
     course_id = courses.index(course_data) + 1
+    #print(course_id,'This is transfer_eval')
+    #print(course_id)
     eval_data.append(course_id)
-
+    #print(eval_data,'after courses')
     # get major requirement description from column 6
     # find major requirement ID in major_reqs list
     major_req_desc = eval_row[5]
     major_req_id = major_reqs.index([major_id, major_req_desc]) + 1
     eval_data.append(major_req_id)
+    #print(major_id)
+    #print(major_req_id)
+    #print(major_id, major_req_id)
 
     # Get sem & year taken and approved status from columns 4 and 5
     eval_data.extend(eval_row[3:5])
@@ -192,7 +271,8 @@ def eval_with_fk(major_id, eval_row, schools, courses, approvers, major_reqs):
 
     # get comment from column 12
     eval_data.append(eval_row[11])
-
+    # print(eval_row, '\n')
+    #print(eval_data, '\n')
     return eval_data
 
 
@@ -206,15 +286,17 @@ def course_with_fk(course_row, schools):
         list of values representing a course entry in the Course entity with
         foreign key school ID
     """
+    #print(schools)
     course_data = []
+    #print(course_row,'This in course by Fk')
     school_name = course_row[0]
     school_id = schools.index(school_name) + 1
     course_data.append(school_id)
     course_data.extend(course_row[1:3])
     return course_data
+    #print(course_data,'hh')
 
-
-def get_course_by_major(major_ws, start, end, schools):
+def get_course_by_major(transfer_wb, start, end, schools):
     """
     Computes and returns a list of 3-element sublists with course data from
     major_ws worksheet. The 3-element sublist has data from columns
@@ -226,16 +308,24 @@ def get_course_by_major(major_ws, start, end, schools):
     Returns: list of 3-elemnt sublists
     """
     courses = []
-    for row in major_ws.iter_rows(
-            min_row=2, max_row=major_ws.max_row, min_col=start, max_col=end,
-            values_only=True):
-        course_data = course_with_fk(row, schools)
-        courses.append(course_data)
+    course_list = []
+    for sheet in transfer_wb:
+        for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, min_col=start, max_col=end, values_only=True):
+        # print(row,'row in course')
+            course_data = course_with_fk(row, schools)
+        #print(course_data)
+            courses.append(course_data)
+    #print(course_list,'This is in courses')
+    #for course in course_list:
+        #print(course,'This in cousejdfkddk')
+    #    if course not in courses:
+    #        courses.append(course)
+    #print(courses,'jkfuuk')
     return courses
 
 
 def get_eval_by_major(
-        major_ws, major_id, start, end, schools, courses, approvers,
+        transfer_wb, start, end, schools, courses, approvers,
         major_reqs):
     """
     Computes and returns a list of 7-elemnent sublists with transfer evaluation
@@ -249,17 +339,20 @@ def get_eval_by_major(
     major_id: index of worksheet in the workbook incremented by 1
     """
     evals = []
-    for row in major_ws.iter_rows(
+    for major_ws in transfer_wb:
+        major_id = transfer_wb.sheetnames.index(major_ws.title) + 1
+        for row in major_ws.iter_rows(
             min_row=2, max_row=major_ws.max_row, min_col=start, max_col=end,
             values_only=True):
-        eval_data = eval_with_fk(
-            major_id, row, schools, courses, approvers, major_reqs)
-        evals.append(eval_data)
+            eval_data = eval_with_fk(
+                major_id, row, schools, courses, approvers, major_reqs)
+            evals.append(eval_data)
+    #print(courses,'This is in evals')
     return evals
 
 
 def get_data_by_major(
-        major_ws, major_id, schools, courses, approvers, major_reqs, evals):
+        transfer_wb, schools, courses, approvers, major_reqs, evals):
     """
     Computes schools list with unique school names from major_ws
     Computes courses list with unique data composed of
@@ -281,28 +374,34 @@ def get_data_by_major(
         parameters
     """
     school_col_idx = 1  # columh 'A'
-    school_lst = get_unique_vals_from_col(major_ws, school_col_idx)
+    school_lst = get_unique_vals_from_col(transfer_wb, school_col_idx)
     schools.extend(school_lst)
+    #print(schools)
 
     start_col = 1
     end_col = 3
-    course_lst = get_course_by_major(major_ws, start_col, end_col, schools)
-    courses.extend(course_lst)
+    course_lst = get_course_by_major(transfer_wb, start_col, end_col, schools)
+    #print(course_lst)
+    for course in course_lst:
+        if course not in courses:
+            courses.append(course)
+    #print(courses)
 
     approver_col_idx = 8  # column 'H'
-    approver_lst = get_unique_vals_from_col(major_ws, approver_col_idx)
+    approver_lst = get_unique_vals_from_col(transfer_wb, approver_col_idx)
     approvers.extend(approver_lst)
 
     major_req_col_idx = 6  # column 'F'
-    major_descriptions = get_unique_vals_from_col(major_ws, major_req_col_idx)
+    #print(major_id)
+    major_descriptions = get_unique_reqs_vals_from_col(transfer_wb, major_req_col_idx)
     for description in major_descriptions:
-        req_data = [major_id, description]
-        major_reqs.append(req_data)
+        major_reqs.append(description)
+    print(major_reqs,'major_reqs jutrfh')
 
     start_col = 1
     end_col = 12
     transfer_eval_lst = get_eval_by_major(
-        major_ws, major_id, start_col, end_col, schools, courses, approvers,
+        transfer_wb, start_col, end_col, schools, courses, approvers,
         major_reqs)
     evals.extend(transfer_eval_lst)
 
@@ -356,3 +455,35 @@ def get_all_data(
         update(all_major_reqs, major_reqs)
         update(all_courses, courses)
         update(all_evals, evals)
+
+
+def test_get_all_data(transfer_wb):
+    """
+    Tests get all data from the workbook 'transfer_by_major.xlsx'
+    """
+    all_majors = transfer_wb.sheetnames
+    all_schools = []
+    all_major_reqs = []
+    all_approvers = []
+    all_courses = []
+    all_evals = []
+    get_all_data(
+        transfer_wb,
+        all_majors, all_schools, all_courses, all_approvers, all_major_reqs,
+        all_evals
+    )
+    print('\nAll Majors\n==============')
+    print(all_majors)
+
+    # Arguments schools, major_reqs, approvers, and courses get updated after
+    # the call
+    print('\nFirst 10 Schools\n==========')
+    print(all_schools[:10])
+    print('\nFirst 10 Major Requirements\n===============')
+    print(all_major_reqs[:50])
+    print('\nAll Approvers\n==========')
+    print(all_approvers)
+    print('\nFirst 10 Courses\n==========')
+    print(all_courses[:10])
+    print('\nFirst 10 Transfer Evaluations\n=====================')
+    print(all_evals[:10])

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h2>Person Form</h2>
+
+  <form method="post" id="dropdownForm" data-majors-url="{% url 'ajax_load_majors' %}" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ dropdown_form.as_table }}
+    </table>
+
+    <button type="submit">Save</button>
+    <a href="{% url 'person_changelist' %}">Nevermind</a>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_school").change(function () {
+      var url = $("#dropdownForm").attr("data-majors-url");  // get the url of the `load_cities` view
+      var schoolID = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: '{% url 'ajax_load_majors' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'school': schoolId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_major").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+    // this one is for fetching vanue data
+    $("#id_major").change(function () { //django-model-form created this id
+      var url = $("#dropdownForm").attr("data-majors-url");  // get the url of the `load_cities` view
+      var majorId = $(this).val();  // get the selected country ID from the HTML input
+    });
+  </script>
+
+{% endblock %}

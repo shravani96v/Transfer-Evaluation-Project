@@ -14,3 +14,6 @@ def create_all(request):
     transfereval_form = TransferevaluationForm()
     major_requirement_form = MajorRequirementForm()
     return render(request, "create_all.html", {"course_form": course_form, "approver_form": approver_form , "major_form": major_form, "school_form": school_form, "transfereval_form": transfereval_form, "major_requirement_form": major_requirement_form})
+
+
+# "approver_form": approver_form , "major_form": major_form, "school_form": school_form, "transfereval_form": transfereval_form, "major_requirement_form": major_requirement_form})

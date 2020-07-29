@@ -10,3 +10,6 @@ class Major_requirement(models.Model):
     major_req_id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=200, blank=True, null=True)
     major_id = models.ForeignKey(Major, on_delete=models.CASCADE)
+
+    class Meta:
+       unique_together = ("description", "major_id")

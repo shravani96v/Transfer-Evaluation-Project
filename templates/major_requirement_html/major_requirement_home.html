@@ -15,6 +15,7 @@
   <tr>
   <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.major_req_id }}</a></th>
   <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.description }}</a></th>
+  <th>{{ Major_requirement.major_id.major_name}}</th>
   </tr>
   {% endfor %}
 </tbody>
