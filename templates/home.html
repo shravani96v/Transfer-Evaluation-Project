@@ -11,28 +11,7 @@
     {% endif %}
 </head>
 
-<style>
-input{
-width:50px;
-text-align:center;
-display:inline-block;
-/**other codes**/
-}
 
-table {
-  border: 2px solid black;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-th {
-  text-align: left;
-}
-</style>
 
 <body style="background-color:White;">
   <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
@@ -58,38 +37,58 @@ th {
     click "Add" for creating new transfer evaluation:
     <button type="submit" formaction="{% url 'check_eval' %}">Add</button>
 
-    <h2>Transfer Evaluation</h2>
+    <html>
+    <head>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-    <table class="content-table">
-      <thead>
-        <th>Major </th>
-        <th>State </th>
-        <th>Institution </th>
-        <th>Course# </th>
-        <th>Course Title </th>
-        <th>UNHM Equivalent </th>
-        <th>Approved Status </th>
-        <th>Approver </th>
-        <th>Sem or year taken </th>
-        <th>Expiration date </th>
-      </thead>
-      <tbody>
-        {% for transfereval in object_list %}
-        <tr>
-          <td>{{ transfereval.major_req_id.major_id.major_name }}</td>
-          <td>{{transfereval.transfer_course_id.state_name }}</td>
-          <td>{{ transfereval.transfer_course_id.school_id }}</td>
-          <td>{{ transfereval.transfer_course_id.subject_number }}</td>
-          <td><a href="/evaluator/course/{{ transfereval.transfer_course_id.pk }}">{{ transfereval.transfer_course_id }}</td>
-          <td><a href="/evaluator/major-requirement/{{ transfereval.major_req_id.major_reqid }}">{{ transfereval.major_req_id}}</td>
-          <td>{{ transfereval.approved_status }}</td>
-          <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
-          <td>{{ transfereval.expiration_date }}</td>
-          <td>{{ transfereval.sem_year_taken }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {background-color:cyan;}
+    </style>
+    </head>
+    <body>
+
+        <h1>Transfer Evaluation</h1>
+
+        <table class="content-table">
+          <thead>
+            <th>Major </th>
+            <th>State </th>
+            <th>Institution </th>
+            <th>Course# </th>
+            <th>Course Title </th>
+            <th>UNHM Equivalent </th>
+            <th>Approved Status </th>
+            <th>Approver </th>
+            <th>Sem or year taken </th>
+            <th>Expiration date </th>
+          </thead>
+          <tbody>
+            {% for transfereval in object_list %}
+            <tr>
+              <td>{{ transfereval.major_req_id.major_id.major_name }}</td>
+              <td>{{transfereval.transfer_course_id.state_name }}</td>
+              <td>{{ transfereval.transfer_course_id.school_id.school_name }}</td>
+              <td>{{ transfereval.transfer_course_id.subject_number }}</td>
+              <td><a href="/evaluator/course/{{ transfereval.transfer_course_id.pk }}">{{ transfereval.transfer_course_id.title}}</td>
+              <td><a href="/evaluator/major-requirement/{{ transfereval.major_req_id.major_reqid }}">{{ transfereval.major_req_id.description}}</td>
+              <td>{{ transfereval.approved_status }}</td>
+              <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
+              <td>{{ transfereval.expiration_date }}</td>
+              <td>{{ transfereval.sem_year_taken }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </html>
   </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
