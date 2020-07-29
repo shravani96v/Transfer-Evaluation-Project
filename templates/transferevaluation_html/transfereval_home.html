@@ -3,60 +3,59 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<br>
-<button onclick="goBack()">Go Back</button>
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
 
+
+<html>
+<head>
 <style>
 table {
-  border: 2px solid black;
   border-collapse: collapse;
+  width: 100%;
 }
 
 th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-th {
+  padding: 8px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
+
+tr:hover {background-color:cyan;}
 </style>
+</head>
+<body>
 
-<h1>Transfer Evaluation</h1>
+    <h1>Transfer Evaluation</h1>
 
-<table class="content-table">
-  <thead>
-    <th>Major </th>
-    <th>State </th>
-    <th>Institution </th>
-    <th>Course# </th>
-    <th>Course Title </th>
-    <th>UNHM Equivalent </th>
-    <th>Approved Status </th>
-    <th>Approver </th>
-    <th>Sem or year taken </th>
-    <th>Expiration date </th>
-  </thead>
-  <tbody>
-    {% for transfereval in object_list %}
-    <tr>
-      <td>{{ transfereval.major_req_id.major_id.major_name }}</td>
-      <td>{{transfereval.transfer_course_id.state_name }}</td>
-      <td>{{ transfereval.transfer_course_id.school_id }}</td>
-      <td>{{ transfereval.transfer_course_id.subject_number }}</td>
-      <td><a href="/evaluator/course/{{ transfereval.transfer_course_id.pk }}">{{ transfereval.transfer_course_id }}</td>
-      <td><a href="/evaluator/major-requirement/{{ transfereval.major_req_id.major_reqid }}">{{ transfereval.major_req_id}}</td>
-      <td>{{ transfereval.approved_status }}</td>
-      <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
-      <td>{{ transfereval.expiration_date }}</td>
-      <td>{{ transfereval.sem_year_taken }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    <table class="content-table">
+      <thead>
+        <th>Major </th>
+        <th>State </th>
+        <th>Institution </th>
+        <th>Course# </th>
+        <th>Course Title </th>
+        <th>UNHM Equivalent </th>
+        <th>Approved Status </th>
+        <th>Approver </th>
+        <th>Sem or year taken </th>
+        <th>Expiration date </th>
+      </thead>
+      <tbody>
+        {% for transfereval in object_list %}
+        <tr>
+          <td>{{ transfereval.major_req_id.major_id.major_name }}</td>
+          <td>{{transfereval.transfer_course_id.state_name }}</td>
+          <td>{{ transfereval.transfer_course_id.school_id.school_name }}</td>
+          <td>{{ transfereval.transfer_course_id.subject_number }}</td>
+          <td><a href="/evaluator/course/{{ transfereval.transfer_course_id.pk }}">{{ transfereval.transfer_course_id.title}}</td>
+          <td><a href="/evaluator/major-requirement/{{ transfereval.major_req_id.major_reqid }}">{{ transfereval.major_req_id.description}}</td>
+          <td>{{ transfereval.approved_status }}</td>
+          <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
+          <td>{{ transfereval.expiration_date }}</td>
+          <td>{{ transfereval.sem_year_taken }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</html>
+
 {% endblock %}

@@ -50,7 +50,7 @@ def course_create(request, template_name='course_html/course_new.html'):
     form = CourseForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('course_hom66e')
+        return redirect('course_home')
     return render(request, template_name, {'form': form})
 
 

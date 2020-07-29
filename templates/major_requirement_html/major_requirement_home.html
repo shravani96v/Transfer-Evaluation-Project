@@ -2,22 +2,43 @@
 {% load static %}
 {% block content %}
 
-<h3>Major_requirement:</h3>
-<table class="content-table">
-<thead>
-    <tr>
-    <th>Major_req_id</th>
-    <th>description</th>
-    </tr>
-</thead>
-<tbody>
-  {% for Major_requirement in object_list %}
-  <tr>
-  <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.major_req_id }}</a></th>
-  <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.description }}</a></th>
-  <th>{{ Major_requirement.major_id.major_name}}</th>
-  </tr>
-  {% endfor %}
-</tbody>
-</table>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
+</head>
+<body>
+
+    <h3>Major Requirement:</h3>
+    <table class="content-table">
+    <thead>
+        <tr>
+        <th>Major_req ID</th>
+        <th>UNHM Course Title</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for Major_requirement in object_list %}
+      <tr>
+      <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.major_req_id }}</a></th>
+      <th><a href="{% url 'major_requirement_detail' Major_requirement.pk %}">{{ Major_requirement.description }}</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</body>
+</html>
+
 {% endblock %}

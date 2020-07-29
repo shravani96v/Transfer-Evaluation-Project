@@ -2,20 +2,40 @@
 {% load static %}
 {% block content %}
 
-<h3>Approver:</h3>
-<table class="content-table">
-<thead>
-    <tr>
-    <th>Approver_name</th>
-    </tr>
-</thead>
-<tbody>
-  {% for approver in object_list %}
-  <tr>
-  <th><a href="{% url 'approver_detail' approver.pk %}">{{ approver.approver_name}}</a></th>
-  <th>{{approver.approver_id}}<th>
-  </tr>
-  {% endfor %}
-</tbody>
-</table>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
+</head>
+<body>
+
+    <h3>Approver:</h3>
+    <table class="content-table">
+    <thead>
+        <tr>
+        <th>Approver</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for approver in object_list %}
+      <tr>
+      <th><a href="{% url 'approver_detail' approver.pk %}">{{ approver.approver_name}}</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</body>
+</html>
 {% endblock %}

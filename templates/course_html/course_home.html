@@ -2,28 +2,47 @@
 {% load static %}
 {% block content %}
 
-<h1>Course</h1>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
-<table class="content-table">
-  <thead>
-    <tr>
-      <th><h2>Course ID</h2></th>
-      <th><h2>Subject Number</h2></th>
-      <th><h2>Title</h2></th>
-      <th><h2>School ID</h2></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for course in object_list %}
-    <tr>
-    <th>{{ course.transfer_course_id}}</th>
-    <th>{{ course.subject_number}}</th>
-    <th>{{ course.title}}</th>
-    <th>{{ course.school_id.school_name }}</th>
-    <th></th>
-    <th><a href="{% url 'course_detail' course.pk %}">edit</th>
-    </tr>
-{% endfor %}
-</tbody>
-</table>
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
+</head>
+<body>
+
+    <h1> Transfer Course</h1>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Course ID</th>
+          <th>Course#</th>
+          <th>Course Title</th>
+          <th>Institution</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in object_list %}
+        <tr>
+        <th>{{ course.transfer_course_id}}</th>
+        <th>{{ course.subject_number}}</th>
+        <th>{{ course.title}}</th>
+        <th>{{course.school_id.school_name}}</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</body>
+</html>
 {% endblock %}

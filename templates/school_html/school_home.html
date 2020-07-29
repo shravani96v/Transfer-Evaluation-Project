@@ -2,24 +2,49 @@
 {% load static %}
 {% block content %}
 
-<h3>School list:</h3>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
-<table class="content-table">
-  <thead>
-    <tr>
-      <th>school_id</th>
-      <th>school_name</th>
-      <th>state_name</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for school in object_list %}
-    <tr>
-    <th>{{school.school_id}}</th>
-    <th><a href="{% url 'school_detail' school.pk %}">{{school.school_name}}</th>
-    <th>{{school.state_name}}</th>
-    </tr>
-{% endfor %}
-</tbody>
-</table>
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
+</head>
+<body>
+
+    <h3>Institution:</h3>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Institution ID</th>
+          <th>Institution </th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for school in object_list %}
+        <tr>
+        <th><a href="{% url 'school_detail' school.pk %}">{{school.school_id}}</th>
+        <th><a href="{% url 'school_detail' school.pk %}">{{school.school_name}}</th>
+        <th><a href="{% url 'school_detail' school.pk %}">{{school.state_name}}</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
 {% endblock %}
+
+
+
+
+</body>
+</html>

@@ -2,22 +2,43 @@
 {% load static %}
 {% block content %}
 
-<h3>Majors List</h3>
-<table class="content-table">
-<thead>
-    <tr>
-    <th>Major_ID</th>
-    <th>Major Name</th>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
-    </tr>
-</thead>
-<tbody>
-  {% for major in object_list %}
-  <tr>
-      <th><a href="{% url 'major_detail' major.pk %}">{{major.major_id}}</th>
-      <th><a href="{% url 'major_detail' major.pk %}">{{ major.major_name}}</a></th>
-  </tr>
-  {% endfor %}
-</tbody>
-</table>
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+</style>
+</head>
+<body>
+
+    <h3>Majors</h3>
+    <table class="content-table">
+    <thead>
+        <tr>
+        <th>Major ID</th>
+        <th>Major Name</th>
+
+        </tr>
+    </thead>
+    <tbody>
+      {% for major in object_list %}
+      <tr>
+          <th><a href="{% url 'major_detail' major.pk %}">{{major.major_id}}</th>
+          <th><a href="{% url 'major_detail' major.pk %}">{{ major.major_name}}</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</body>
+</html>
 {% endblock %}
