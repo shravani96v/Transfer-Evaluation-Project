@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <html>
   <head>
@@ -9,21 +10,158 @@
       <a href="{% url 'login' %}">login</a>
     {% endif %}
 </head>
-<body style="background-color:LightYellow;">
-      <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
-      </div>
-  </body>
 
-<form action="{% url 'major_search' %}" method="get">
-    <input name="q" type="text" placeholder="Enter Major...">
-        <button type="submit">Go</button>
-</form>
-<form action="{% url 'school_search' %}" method="get">
-    <input name="q" type="text" placeholder="Enter School...">
-    <button type="submit">Go</button>
-</form>
+<style>
+input{
+width:50px;
+text-align:center;
+display:inline-block;
+/**other codes**/
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+}
+</style>
+
+<body style="background-color:White;">
+  <div style="font-size: 14px;line-height: 1.6;margin: 20px 0; text-align: left;">
+  </div>
+
+  <form action ="" method="POST" id="searchForm" search-drop-url="{% url 'searchajax' %}" url2 = "{% url 'searchajax2' %}" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <select name = "major" id = "major" class="form-control" style="width: 200px;">
+        <option value="null">-- Select Major --</option>
+        {% for major in major %}
+            <option value="{{major.major_id}}">{{major.major_name}}</option>
+        {% endfor %}
+    </select>
+    <select name = "school_id" id ="school_id" class="form-control" style="width: 200px;">
+        <option value="null">-- Select school --</option>
+        {% for school in schools %}
+            <option value="{{school.school_id}}">{{school.school_name}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go"/>
+    &emsp;&emsp;
+    click "Add" for creating new transfer evaluation:
+    <button type="submit" formaction="{% url 'check_eval' %}">Add</button>
+
+    <h2>Transfer Evaluation</h2>
+
+    <table class="content-table">
+      <thead>
+        <th>Major </th>
+        <th>State </th>
+        <th>Institution </th>
+        <th>Course# </th>
+        <th>Course Title </th>
+        <th>UNHM Equivalent </th>
+        <th>Approved Status </th>
+        <th>Approver </th>
+        <th>Sem or year taken </th>
+        <th>Expiration date </th>
+      </thead>
+      <tbody>
+        {% for transfereval in object_list %}
+        <tr>
+          <td>{{ transfereval.major_req_id.major_id.major_name }}</td>
+          <td>{{transfereval.transfer_course_id.state_name }}</td>
+          <td>{{ transfereval.transfer_course_id.school_id }}</td>
+          <td>{{ transfereval.transfer_course_id.subject_number }}</td>
+          <td><a href="/evaluator/course/{{ transfereval.transfer_course_id.pk }}">{{ transfereval.transfer_course_id }}</td>
+          <td><a href="/evaluator/major-requirement/{{ transfereval.major_req_id.major_reqid }}">{{ transfereval.major_req_id}}</td>
+          <td>{{ transfereval.approved_status }}</td>
+          <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
+          <td>{{ transfereval.expiration_date }}</td>
+          <td>{{ transfereval.sem_year_taken }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+ <script>
+ $(document).on('change', 'select#major', function () {
+ var id = $(this).val();
+ var url = $("#searchForm").attr("search-drop-url");
+ var school_selected = $(school_id).children("option:selected").val();
 
 
+ console.log("urls and id", url, id, school_selected);
+ data = {'id' : id};
 
+ $.ajax({
+   type:"GET",
+   url: url,
+   data: data,
+   success: function (result) {
+     console.log(result);
+                         $("#school_id option").remove();
+                         $('#school_id').append($('<option>', {
+                               value: 'null',
+                               text: '-- Select school --'
+                           }));
+
+                         for (var i = result.length - 1; i >= 0; i--) {
+
+                           $('#school_id').append($('<option>', {
+                                 value: result[i].id,
+                                 text: result[i].name
+                             }));
+                         };
+                         $("#school_id").val(school_selected);
+                       }
+                 });
+             });
+ </script>
+
+ <script>
+ $(document).on('change', 'select#school_id', function () {
+ var id = $(this).val();
+ var url = $("#searchForm").attr("url2");
+ var major_selected = $(major).children("option:selected").val();
+
+ console.log("urls and id", url, id, major_selected);
+ data = {'id' : id};
+
+ $.ajax({
+   type:"GET",
+   url: url,
+   data: data,
+   success: function (result) {
+     console.log(result);
+                         $("#major option").remove();
+                         $('#major').append($('<option>', {
+                               value: 'null',
+                               text: '-- Select Major --'
+                           }));
+
+                         for (var i = result.length - 1; i >= 0; i--) {
+
+                           $('#major').append($('<option>', {
+                                 value: result[i].id,
+                                 text: result[i].name
+                             }));
+                         };
+                        $("#major").val(major_selected);
+                       }
+                 });
+             });
+ </script>
+</body>
 </html>
 {% endblock content %}

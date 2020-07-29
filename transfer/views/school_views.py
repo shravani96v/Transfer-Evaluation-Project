@@ -47,7 +47,6 @@ class SchoolDeleteView(DeleteView):
 
 class SchoolSearchView(ListView):
     template_name = 'search_results.html'
-
     def get_queryset(self):
         query = self.request.GET.get('q')
         print(query)

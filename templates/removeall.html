@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<html>
+<head>
+<title></title>
+</head>
+<h3>Are you sure?</h3>
+
+<body>
+  <form method="post"> {% csrf_token %}
+<button type="submit" formaction=''>Yes</button>
+<button type="submit" formaction="{% url 'home' %}">No</button>
+  </form>
+</body>
+</html>
+{% endblock %}

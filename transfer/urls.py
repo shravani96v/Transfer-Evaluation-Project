@@ -7,29 +7,40 @@ from .views.school_views import *
 from .views.transfer_evaluation_views import *
 from .views.remove_data import *
 from .views.approver_views import *
+from .views.check_eval_view import *
 from .views.load import *
 from .views.major_requirement_views import *
-from .views.home import *
+# from .views.home import *
 from .views.search import *
-from .views.create_all import *
-from .views.dropdownviews import *
-from .views.import_more import *
+from .views.search_by_state_test import *
+#from .views.create_all import *
+from .views.post_check_eval import *
 
 
 urlpatterns = [
-    path('create', create_all, name = "create_all"),
+    #path('create', create_all, name = "create_all"),
     path('load-data/', import_file, name='import'),
     path('load-more/', import_more, name='import_more'),
     path('remove-data/', remove_all_data, name='remove_data'),
-    path('home', HomeListView.as_view(), name='home'),
-    path('searchby-major/', SearchByMajor.as_view(), name='searchbymajor'),
-    path('searchby-school/', searchbyschool, name='searchbyschool'),
+    path('home/', search, name='home'),
+    path('search_ajax/', search_ajax, name='searchajax'),
+    path('search_ajax2/', search_ajax2, name='searchajax2'),
+
+    # testing dependant dropdowns
+    path('searchbystate/', state_search, name='searchbystate'),
+    path('searchstate_ajax/', searchstate_ajax, name='searchstateajax'),
+
+    #path("state_name", state_name, name ='statename'),
+    path("check-eval", check_evaluation, name='check_eval'),
+    path("check-post-eval/<int:check_eval_id>/", check_post_evaluation, name='check_post'),
+
     # approver resources
     path('approver-list/', ApproverListView.as_view(), name='approver_home'),
     path('approver/<int:pk>/', ApproverDetailView.as_view(), name='approver_detail'),
     path('approver-create', ApproverCreateView.as_view(), name='approver_new'),
     path('approver-update/<int:pk>/', ApproverUpdateView.as_view(), name='approver_update'),
     path('approver-delete/<int:pk>/', ApproverDeleteView.as_view(), name='approver_delete'),
+
     # school resources
     path('school-list/', SchoolListView.as_view(), name='school_home'),
     path('school/<int:pk>/', SchoolDetailView.as_view(), name='school_detail'),
@@ -45,16 +56,18 @@ urlpatterns = [
     path('major/<int:pk>/', MajorDetailView.as_view(), name='major_detail'),
     path('major-create', MajorCreateView.as_view(), name='major_new'),
     path('major-search', MajorSearchView.as_view(), name='major_search'),
+
     # course resources
-    path('course-list/', course_list, name='course_home'),
+    path('course-list/', CourseListView.as_view(), name='course_home'),
     path('course/<int:pk>/', CourseDetailView.as_view(), name='course_detail'),
+    path('course-create', CourseCreateView.as_view(), name='course_new'),
     path('course-update/<int:pk>/', CourseUpdateView.as_view(), name='course_update'),
-    path('course-delete/<int:pk>/', course_delete, name='course_delete'),
-    path('course-create', course_create, name='course_new'),
+    path('course-delete/<int:pk>/', CourseDeleteView.as_view(), name='course_delete'),
+
 
     # transfer evaluation
-    path('transfereval-list/', TransferEvaluationListView.as_view(), name='transfereval_home'),
     path('transfereval/<int:pk>/', TransferEvaluationDetailView.as_view(), name='transfereval_detail'),
+    path('transfereval-list/', TransferEvaluationListView.as_view(), name='transfereval_home'),
     path('transfereval-update/<int:pk>/', TransferEvaluationUpdateView.as_view(), name='transfereval_update'),
     path('transfereval-delete/<int:pk>/', TransferEvaluationDeleteView.as_view(), name='transfereval_delete'),
     path('transfereval-create', TransferEvaluationCreateView.as_view(), name='transfereval_new'),

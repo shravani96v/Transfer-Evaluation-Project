@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import ModelForm
 from .models import *
-
+from .fields import ListTextWidget
 
 class CourseForm1(ModelForm):
     class Meta:
         model = TransferCourse
-        fields = ['transfer_course_id', 'school_id', 'subject_number']
+        fields = ['transfer_course_id', 'subject_number']
 
 
 class ApproverForm(ModelForm):
@@ -15,10 +15,12 @@ class ApproverForm(ModelForm):
         fields = ['approver_name']
 
 
-class SchoolForm(ModelForm):
-    class Meta:
-        model = School
-        fields = ['state_name']
+class SchoolForm(forms.Form):
+    school = forms.CharField(required=True)
+    def __init__(self, *args, **kwargs):
+        _school_list = kwargs.pop('data_list', None)
+        super(SchoolForm, self).__init__(*args, **kwargs)
+        self.fields['school'].widget = ListTextWidget(data_list=_school_list, name='school-list')
 
 
 class MajorRequirementForm(ModelForm):
@@ -39,23 +41,7 @@ class TransferevaluationForm(ModelForm):
         exclude = ['transfer_eval_id']
 
 
-class DropDownForm(forms.ModelForm):
+class CheckEvaluationForm(ModelForm):
     class Meta:
-        model = DropDown
-        fields = ('school', 'major')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields['major'].queryset = Major.objects.none()
-
-
-
-        if 'school' in self.data:
-            try:
-                school_id = int(self.data.get('school'))
-                self.fields['major'].queryset = DropDown.objects.filter(school_id=school_id).order_by('school')
-            except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty City queryset
-        elif self.instance.pk:
-            self.fields['major'].queryset = self.instance.school.major_set.order_by('name')
+        model = CheckEvaluation
+        exclude = ['check_eval_id']

@@ -8,19 +8,24 @@
   </head>
   <body>
     <header>
-       <a href="http://127.0.0.1:8000/transfer/" title="Home" rel="home" id="logo">
+       <a href="http://127.0.0.1:8000/transfer" title="Home" rel="home" id="logo">
           <img src="https://paulcollege.unh.edu/cep/sites/paulcollege.unh.edu.cep/themes/cep/logo.png" alt="Home">
     </header>
 
   </body>
-  <!DOCTYPE html>
-<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: Blue;
+  color: white;
 }
 
 .navbar {
@@ -35,6 +40,11 @@ body {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+.navbar a.active {
+  background-color: #333;
+  color: white;
 }
 
 .dropdown {
@@ -85,7 +95,6 @@ body {
 </style>
 </head>
 <body>
-
 <div class="navbar">
   <a href="{% url 'home' %}">Home</a>
     <div class="dropdown">
@@ -147,8 +156,8 @@ body {
     <a href="{% url 'logout' %}">logout</a>
 
 </div>
+
 </body>
-</html>
 
 </html>
 {% block content %}

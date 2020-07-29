@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<html>
+<head>
+<title>Enter the details</title>
+</head>
+
+<body>
+<form action="{% url 'check_post' check.check_eval_id %}" method="POST">
+{% csrf_token %}
+{{ form|crispy }}
+{{ check.check_eval_id }} <br>
+<p>School name: {{ check.school_name }}</p>
+<p>Major name: {{ check.major_name }}</p>
+<p>Transfer course ID: {{ check.transfer_subject_number }}</p>
+<p>Transfer course title: {{ check.transfer_course_title }}</p>
+<p>UNHM equivalent: {{ check.unhm_equivalent }}</p>
+<p>Approver name: {{ check.approver_name }}</p>
+<p>Approved status: {{ check.approved_status }}</p>
+<p>Sem/Year taken: {{ check.sem_or_year_taken }}</p>
+<p>Expiration date: {{ check.expiration_date }}</p>
+<input type="submit" value="OK"/>
+<button type="submit" formaction="transfereval-list/">Cancel</button>
+
+</form>
+
+</body>
+</html>
+{% endblock %}

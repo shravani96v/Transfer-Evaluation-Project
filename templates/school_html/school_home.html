@@ -15,9 +15,9 @@
   <tbody>
     {% for school in object_list %}
     <tr>
-    <th><a href="{% url 'school_detail' school.pk %}">{{school.school_id}}</th>
+    <th>{{school.school_id}}</th>
     <th><a href="{% url 'school_detail' school.pk %}">{{school.school_name}}</th>
-    <th><a href="{% url 'school_detail' school.pk %}">{{school.state_name}}</th>
+    <th>{{school.state_name}}</th>
     </tr>
 {% endfor %}
 </tbody>

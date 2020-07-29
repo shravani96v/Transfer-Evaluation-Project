@@ -7,10 +7,10 @@
 <table class="content-table">
   <thead>
     <tr>
-      <th>course_id</th>
-      <th>subject_number</th>
-      <th>title</th>
-      <th>school_ID</th>
+      <th><h2>Course ID</h2></th>
+      <th><h2>Subject Number</h2></th>
+      <th><h2>Title</h2></th>
+      <th><h2>School ID</h2></th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +19,9 @@
     <th>{{ course.transfer_course_id}}</th>
     <th>{{ course.subject_number}}</th>
     <th>{{ course.title}}</th>
-    <th>{{course.school_id.school_name}}</th>
+    <th>{{ course.school_id.school_name }}</th>
+    <th></th>
+    <th><a href="{% url 'course_detail' course.pk %}">edit</th>
     </tr>
 {% endfor %}
 </tbody>
