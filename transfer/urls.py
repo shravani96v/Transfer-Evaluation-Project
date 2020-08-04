@@ -79,11 +79,4 @@ urlpatterns = [
     path('major-requirement-update/<int:pk>/', Major_requirementUpdateView.as_view(), name='major_requirement_update'),
     path('major-requirement-delete/<int:pk>/', Major_requirementDeleteView.as_view(), name='major_requirement_delete'),
 
-
-    #path('list/', DropDownListView.as_view(), name='person_changelist'),
-    #path('add/', DropDownCreateView.as_view(), name='person_add'),
-    #path('adds/', dropdown, name='person_add'),
-    #path('<int:pk>/', PersonUpdateView.as_view(), name='person_change'),
-    #path('ajax/load-cities/', load_majors, name='ajax_load_majors'),
-    #path('ajax/load-vanues/', views.load_vanues, name='ajax_load_vanues'),
 ]

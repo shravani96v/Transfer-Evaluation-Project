@@ -2,9 +2,6 @@
 {% load static %}
 {% block content %}
 {% load crispy_forms_tags %}
-
-
-
 <html>
 <head>
 <style>
@@ -23,10 +20,9 @@ tr:hover {background-color:cyan;}
 </style>
 </head>
 <body>
-
+    <script src="/static/sorttable.js"></script>
     <h1>Transfer Evaluation</h1>
-
-    <table class="content-table">
+    <table class="sortable" id="table" style="text-align:center;" cellspacing="10">
       <thead>
         <th>Major </th>
         <th>State </th>
