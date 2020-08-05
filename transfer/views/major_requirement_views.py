@@ -11,6 +11,7 @@ def form_valid(self, form):
 
 
 class Major_requirementListView(ListView):
+    paginate_by = 5
     model = Major_requirement
     template_name = 'major_requirement_html/major_requirement_home.html'
 

@@ -16,6 +16,7 @@ class MajorForm(ModelForm):
 
 class MajorListView(ListView):
     # list view of the object of model Major
+    paginate_by = 2
     model = Major
     template_name = 'major_html/major_home.html'
 

@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 
 class ApproverListView(ListView):
     # detail view of the object of model Major
+    paginate_by = 5
     model = Approver
     template_name = 'approver_html/approver_home.html'
 

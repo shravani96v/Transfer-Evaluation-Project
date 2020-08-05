@@ -14,6 +14,7 @@ class TransferevaluationForm(ModelForm):
 
 
 class TransferEvaluationListView(ListView):
+    paginate_by = 4
     model = Transferevaluation
     template_name = 'transferevaluation_html/transfereval_home.html'
 

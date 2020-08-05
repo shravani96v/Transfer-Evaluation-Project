@@ -16,6 +16,7 @@ class CourseCreateView(CreateView):
 
 class CourseListView(ListView):
     # lists of all the object of model TransferCourse
+    paginate_by = 5
     model = TransferCourse
     template_name = 'course_html/course_home.html'
 

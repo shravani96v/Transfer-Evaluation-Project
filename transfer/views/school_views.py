@@ -14,6 +14,7 @@ class HomeListView(ListView):
 
 class SchoolListView(ListView):
     # lists of all the object of model School
+    paginate_by = 5
     model = School
     template_name = 'school_html/school_home.html'
 
