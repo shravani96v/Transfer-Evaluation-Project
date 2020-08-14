@@ -9,4 +9,7 @@
 <p>Course ID:{{ object.course_id}}</p>
 <p>Approver ID:{{ object.approver_id}}</p>
 <p>Major requirement ID:{{ object.major_req_id}}</p>
+<li><a href="{% url 'transfereval_update' object.pk %}"><button type="submit">update Transfereval</button></a></li>
+<br>
+<li><a href="{% url 'transfereval_delete' object.pk %}"><button type="submit">delete Transfereval</button></a></
 {% endblock %}

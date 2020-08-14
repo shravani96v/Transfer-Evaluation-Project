@@ -6,9 +6,9 @@
 
 
 <div class="post-entry">
-  <p><strong>Subject Number:</strong>{{ object.subject_number }}</p>
+  <p><strong>Course#:</strong>{{ object.subject_number }}</p>
   <p><strong>Course Title:</strong>{{ object.title }}</p>
-  <p><strong>School ID:</strong>{{ object.school_id }}</p>
+  <p><strong>Institution</strong>{{ object.school_id }}</p>
 </div>
 <li><a href="{% url 'course_update' object.pk %}"><button type="submit">update course</button></a></li>
 <li><a href="{% url 'course_delete' object.pk %}"><button type="submit">delete course</button></a></li>

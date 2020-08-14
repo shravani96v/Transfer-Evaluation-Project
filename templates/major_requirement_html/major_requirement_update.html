@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Update major_requirementl:</h3>
+<h3>Update UNHM Equivalent</h3>
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
+    <p><strong>UNHM Equivalent:</strong>  {{ form.description }}</p>
     <input type="submit" value="Submit" />
 </form>
 {% endblock content %}

@@ -23,7 +23,7 @@ class Transferevaluation(models.Model):
     transfer_course_id = models.ForeignKey(TransferCourse, on_delete=models.CASCADE)
     major_req_id = models.ForeignKey(Major_requirement, on_delete=models.CASCADE)
     sem_year_taken = models.CharField(max_length=8, blank=True, null=True)
-    expiration_date = models.DateField(blank=True, null=True)
+    expiration_date = models.DateField(blank=True, null=True)  # It must be in YYYY-MM-DD format
     approved_status = models.CharField(max_length=1, blank=True, null=True)
     notes = models.CharField(max_length=150, blank=True, null=True)
     approver_id = models.ForeignKey(Approver, on_delete=models.CASCADE)

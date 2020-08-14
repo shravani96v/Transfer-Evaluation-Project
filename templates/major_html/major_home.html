@@ -47,15 +47,12 @@ tr:hover {background-color:#f5f5f5;}
     <table class="sortable" id="table" style="text-align:center;" cellspacing="10">
     <thead>
         <tr>
-        <th>Major ID</th>
         <th>Major Name</th>
-
         </tr>
     </thead>
     <tbody>
       {% for major in object_list %}
       <tr>
-          <th>{{major.major_id}}</th>
           <th><a href="{% url 'major_detail' major.pk %}">{{ major.major_name}}</a></th>
       </tr>
       {% endfor %}

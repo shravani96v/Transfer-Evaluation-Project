@@ -107,6 +107,7 @@
     }
 
     .pagination a:hover:not(.active) {background-color: #ddd;}
+
     </style>
     </head>
     <body>
@@ -123,7 +124,7 @@
             <th>UNHM Equivalent </th>
             <th>Approved Status </th>
             <th>Approver </th>
-            <th>Sem or year taken </th>
+            <!--<th>Sem or year taken </th> -->
             <th>Expiration date </th>
           </thead>
           <tbody>
@@ -138,7 +139,9 @@
               <td>{{ transfereval.approved_status }}</td>
               <td><a href="{% url 'approver_detail' transfereval.approver_id.approverid %}">{{ transfereval.approver_id.approver_name}}</td>
               <td>{{ transfereval.expiration_date }}</td>
-              <td>{{ transfereval.sem_year_taken }}</td>
+              <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+              <td> <a href="/evaluator/transfereval-update{{transfereval.transfer_eval_id.pk}}"><button type="submit"<i class='fas fa-pencil-alt'></i></button></a> </td>
+              <td> <a href="{% url 'transfereval_delete' transfereval.transfer_eval_id %}"><button type="submit" class="btn"><i class="fa fa-trash"></i></button></a> </td>
             </tr>
             {% endfor %}
           </tbody>

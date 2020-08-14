@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Update transfer Evaluation:</h3>
+<h3>Update transfer Evaluation</h3>
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
+    <p><strong>Course#:</strong>  {{ form.transfer_course_id }}</p>
+    <p><strong>UNHM Equivalent:</strong>  {{ form.major_req_id }}</p>
+    <p><strong>Sem or year taken:</strong>  {{ form.sem_year_taken }}</p>
+    <p><strong>Expiration date:</strong>  {{ form.expiration_date }}</p>
+    <p><strong>Approved Status:</strong>  {{ form.approved_status }}</p>
+    <p><strong>Comment#:</strong>  {{ form.notes }}</p>
     <input type="submit" value="Submit" />
 </form>
 {% endblock content %}

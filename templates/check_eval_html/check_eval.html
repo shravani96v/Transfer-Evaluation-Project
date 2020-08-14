@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form action="" method="POST">
+<form method="POST">
 {% csrf_token %}
 {{ form|crispy }}
 <input type="submit" value="submit"/>

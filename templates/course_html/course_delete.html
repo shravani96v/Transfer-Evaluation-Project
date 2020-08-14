@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3> Delete Course:</h3>
+<h3> Delete Course</h3>
 <form method="post">{% csrf_token %}
     Are you sure you want to delete "{{ object }}" ?
     <input type="submit" value="Submit" />

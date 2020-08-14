@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Update Course:</h3>
+<h3>Update Course</h3>
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
+    <p><strong>Course#:</strong>  {{ form.subject_number }}</p>
+    <p><strong>Course Title:</strong>  {{ form.title }}</p>
+    <p><strong>Institution</strong>  {{ form.school_id }}</p>
     <input type="submit" value="Submit" />
 </form>
 {% endblock content %}

@@ -25,7 +25,7 @@ def search(request):
     major = Major.objects.all()
     transfereval = Transferevaluation.objects.all()
     # transfereval.paginate(page=request.GET.get("page", 1), per_page=20)
-    paginator = Paginator(transfereval, 10)
+    paginator = Paginator(transfereval, 5)
     page_number = request.GET.get('page')
 
 
@@ -41,7 +41,7 @@ def search(request):
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             print(page_obj)
-            return render(request, 'home_paginated.html', {"major": major, "schools": schools, 'page_obj': page_obj})
+            return render(request, 'home_paginated.html', {"major": major, "schools": schools, "transfereval": transfereval, 'page_obj': page_obj})
         elif majorid == "null" and schoolid != "null":
            school = School.objects.filter(school_id=schoolid)
            course = TransferCourse.objects.filter(school_id__in = school)

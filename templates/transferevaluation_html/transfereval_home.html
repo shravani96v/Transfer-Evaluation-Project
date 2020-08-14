@@ -39,6 +39,7 @@ tr:hover {background-color:#E5E7E9;}
   border: 1px solid #4CAF50;
 }
 
+
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 </head>
@@ -75,6 +76,9 @@ tr:hover {background-color:#E5E7E9;}
           <td>{{ transfereval.approver_id.approver_name}}
           <td>{{ transfereval.expiration_date }}</td>
           <td>{{ transfereval.sem_year_taken }}</td>
+          <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+          <td> <a href="{% url 'transfereval_update' transfereval.pk %}"><button type="submit"<i class='fas fa-pencil-alt'></i></button></a> </td>
+          <td> <a href="{% url 'transfereval_delete' transfereval.pk %}"><button type="submit" class="btn"><i class="fa fa-trash"></i></button></a> </td>
         </tr>
         {% endfor %}
       </tbody>
