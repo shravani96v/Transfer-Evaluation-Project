@@ -22,7 +22,7 @@ urlpatterns = [
     path('load-data/', import_file, name='import'),
     path('load-more/', import_more, name='import_more'),
     path('remove-data/', remove_all_data, name='remove_data'),
-    path('home/', search, name='home'),
+    path('', search, name='home'),
     path('search_ajax/', search_ajax, name='searchajax'),
     path('search_ajax2/', search_ajax2, name='searchajax2'),
 
