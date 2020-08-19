@@ -15,14 +15,22 @@ from ..models import (
                      )
 from django.shortcuts import render, redirect, get_object_or_404
 
-from django.views.generic import CreateView
+from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from ..forms import CheckEvaluationForm
+from django.core.paginator import Paginator
 
 
 def check_post_evaluation(request, check_eval_id):
+
+    transfereval = Transferevaluation.objects.all()
+    paginator = Paginator(transfereval, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if request.method == 'POST':
             check = CheckEvaluation.objects.get(check_eval_id = check_eval_id)
+
             schools = School.objects.filter(school_name=check.school_name)
             major = Major.objects.filter(major_name=check.major_name)
             approver = Approver.objects.filter(approver_name=check.approver_name)
@@ -89,4 +97,5 @@ def check_post_evaluation(request, check_eval_id):
                     ).save()
             object_list = Transferevaluation.objects.all()
 
-    return render(request, 'transferevaluation_html/transfereval_home.html', {'object_list': object_list})
+
+    return render(request, 'home_paginated.html', {'page_obj': page_obj})

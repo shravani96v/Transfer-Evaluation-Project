@@ -12,7 +12,7 @@
 <form action="{% url 'check_post' check.check_eval_id %}" method="POST">
 {% csrf_token %}
 {{ form|crispy }}
-{{ check.check_eval_id }} <br>
+
 <p>School name: {{ check.school_name }}</p>
 <p>Major name: {{ check.major_name }}</p>
 <p>Transfer course ID: {{ check.transfer_subject_number }}</p>
@@ -23,7 +23,8 @@
 <p>Sem/Year taken: {{ check.sem_or_year_taken }}</p>
 <p>Expiration date: {{ check.expiration_date }}</p>
 <input type="submit" value="OK"/>
-<button type="submit" formaction="transfereval-list/">Cancel</button>
+<button type="submit" formaction="check-eval">Cancel</button>
+<button type="submit" formaction="{% url 'check_eval_update' check.check_eval_id %}">Edit</button>
 
 </form>
 

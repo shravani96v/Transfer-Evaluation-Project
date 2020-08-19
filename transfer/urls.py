@@ -33,6 +33,7 @@ urlpatterns = [
     #path("state_name", state_name, name ='statename'),
     path("check-eval", check_evaluation, name='check_eval'),
     path("check-post-eval/<int:check_eval_id>/", check_post_evaluation, name='check_post'),
+    path("check-update/<int:check_eval_id>/", update_view, name='check_eval_update'),
 
     # approver resources
     path('approver-list/', ApproverListView.as_view(), name='approver_home'),
@@ -45,6 +46,7 @@ urlpatterns = [
     path('school-list/', SchoolListView.as_view(), name='school_home'),
     path('school/<int:pk>/', SchoolDetailView.as_view(), name='school_detail'),
     path('school-create', SchoolCreateView.as_view(), name='school_new'),
+    path('school-create-new', SchoolCreateViewCheckEval.as_view(), name='school_new_check_eval'),
     path('school-update/<int:pk>/', SchoolUpdateView.as_view(), name='school_update'),
     path('school-delete/<int:pk>/', SchoolDeleteView.as_view(), name='school_delete'),
     path('school-search/', SchoolSearchView.as_view(), name='school_search'),
@@ -55,6 +57,7 @@ urlpatterns = [
     path('major-delete/<int:pk>/', major_delete, name='major_delete'),
     path('major/<int:pk>/', MajorDetailView.as_view(), name='major_detail'),
     path('major-create', MajorCreateView.as_view(), name='major_new'),
+    path('major-create-new', MajorCreateViewCheckEval.as_view(), name='major_new_check_eval'),
     path('major-search', MajorSearchView.as_view(), name='major_search'),
 
     # course resources

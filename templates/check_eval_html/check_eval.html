@@ -8,12 +8,80 @@
 <title>Enter the details</title>
 </head>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+ <script>
+ $(document).on('change', 'select#major', function() {
+ var id = $(this).val();
+ var url = $("#majorsearch").attr("search-drop-url");
+
+
+ console.log("urls and id", url, id);
+ data = {'id' : id};
+
+ $.ajax({
+   type:"GET",
+   url: url,
+   data: data,
+   success: function (result) {
+     console.log(result);
+                         $("#school_id option").remove();
+                         $('#school_id').append($('<option>', {
+                               value: 'null',
+                               text: '-- Select school --'
+                           }));
+
+                         for (var i = result.length - 1; i >= 0; i--) {
+
+                           $('#school_id').append($('<option>', {
+                                 value: result[i].id,
+                                 text: result[i].name
+                             }));
+                         };
+                       }
+                 });
+             });
+ </script>
+
 <body>
-<form method="POST">
-{% csrf_token %}
-{{ form|crispy }}
-<input type="submit" value="submit"/>
-</form>
+  <h2>New transfer evaluation</h2>
+  <form action ="" method="POST" id="majorsearch" search-drop-url="{% url 'searchajax' %}" novalidate>
+    {% csrf_token %}
+  Major name: &emsp;<select name = "major" id = "major" class="form-control" style="width: 200px;">
+    <option value="null" >-- Select Major --</option>
+      {% for major in major %}
+          <option value="{{major.major_id}}">{{major.major_name}}</option>
+      {% endfor %}
+  </select>&emsp;<button type="submit" formaction="{% url 'major_new_check_eval' %}" method='POST'>Add new major</button><br>
+  <br>
+  School name:&emsp;<select name = "school_id" id ="school_id" class="form-control" style="width: 200px;">
+    <option value="null" >-- Select school --</option>
+      {% for school in schools %}
+          <option value="{{school.school_id}}">{{school.school_name}}</option>
+      {% endfor %}
+  </select>
+  &emsp;<button type="submit" formaction="{% url 'school_new_check_eval' %}" method='POST'>Add new school</button>
+  <br>
+  <br>
+  {{ form|crispy }}
+  <input type="submit" value="submit"/>
+  </form>
+
+
+
+
+<!--
+  <div>
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div>
+      <button type="submit" formaction="{% url 'school_new' %}" method='POST'>Add new school</button>
+    </div>
+    <input type="submit" value="submit"/>
+    </form>
+  </div>
+  -->
 </body>
 </html>
 {% endblock %}

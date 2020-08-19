@@ -1,5 +1,5 @@
 from django.shortcuts import render   # redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from ..models.model_school import School
 from django.urls import reverse_lazy
@@ -31,6 +31,14 @@ class SchoolCreateView(CreateView):
     template_name = 'school_html/school_new.html'
     fields = ['school_id', 'school_name', 'state_name']
     success_url = reverse_lazy('school_home')
+
+
+class SchoolCreateViewCheckEval(CreateView):
+    # create view of all the object of model School
+    model = School
+    template_name = 'school_html/school_new.html'
+    fields = ['school_id', 'school_name', 'state_name']
+    success_url = reverse_lazy('check_eval')
 
 
 class SchoolUpdateView(UpdateView):

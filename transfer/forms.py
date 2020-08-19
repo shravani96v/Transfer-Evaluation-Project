@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import *
 from .fields import ListTextWidget
+from crispy_forms.helper import FormHelper
 
 class CourseForm1(ModelForm):
     class Meta:
@@ -40,7 +41,14 @@ class TransferevaluationForm(ModelForm):
         model = Transferevaluation
         fields = ['transfer_course_id', 'major_req_id','sem_year_taken']
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class CheckEvaluationForm(ModelForm):
     class Meta:
         model = CheckEvaluation
-        exclude = ['check_eval_id']
+        exclude = ['check_eval_id', 'major_name', 'school_name']
+        widgets = {
+            'expiration_date': DateInput(),
+        }

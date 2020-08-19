@@ -35,6 +35,14 @@ class MajorCreateView(CreateView):
     success_url = reverse_lazy('major_home')
 
 
+class MajorCreateViewCheckEval(CreateView):
+    # creates object in model Major
+    model = Major
+    template_name = 'major_html/major_new.html'
+    fields = ['major_name']
+    success_url = reverse_lazy('check_eval')
+
+
 class MajorSearchView(ListView):
     # list view of the object of model Major
     #model = Transferevaluation
