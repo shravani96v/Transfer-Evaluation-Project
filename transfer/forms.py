@@ -39,7 +39,8 @@ class MajorForm(ModelForm):
 class TransferevaluationForm(ModelForm):
     class Meta:
         model = Transferevaluation
-        fields = ['transfer_course_id', 'major_req_id','sem_year_taken']
+        exclude = ['transfer_eval_id']
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
